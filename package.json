@@ -12,6 +12,10 @@
     "build": "run-s build-src build-test",
     "b5": "run-s build test-es5"
   },
+  "files":[
+    "src",
+    "es5/src"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/Sobesednik/africa.git"
