@@ -1,6 +1,6 @@
 {
   "name": "africa",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A library to interactively create and read configuration files.",
   "main": "src/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "build": "run-s build-src build-test",
     "b5": "run-s build test-es5"
   },
-  "files":[
+  "files": [
     "src",
     "es5/src"
   ],
