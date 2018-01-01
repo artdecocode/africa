@@ -1,7 +1,7 @@
 const { resolve } = require('path')
 const { readJSON, writeJSON, erase, createWritable } = require('wrote')
 const { homedir } = require('os')
-const { fork } = require('child_process')
+const { spawn } = require('child_process')
 const { Readable } = require('stream')
 
 const FIXTURES_PATH = resolve(__dirname, '../fixtures')
@@ -30,8 +30,8 @@ async function Context () {
     }
     this.fork = async (packageName, questions, answers = []) => {
         const testModule = resolve(__dirname, '../fixtures/test')
-        const proc = fork(testModule, [], {
-            stdio: 'pipe',
+        const proc = spawn(process.execPath, [testModule], {
+            stdio: ['pipe', 'pipe', 'pipe', 'ipc'],
         })
         proc.send({ packageName, questions })
 
