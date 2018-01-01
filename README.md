@@ -4,8 +4,8 @@
     <img src="./africa.jpg" alt="Africa" />
 </a>
 
-`africa` is a Node.js package which simplifies reading from and reading from
-persistent configuration files in user's home directory. If configuration
+`africa` is a Node.js package which simplifies reading from and writing to
+persistent configuration files in user's home directory. If a configuration
 exists, it will be read, and if not, questions will be asked and answers stored.
 
 ```sh
