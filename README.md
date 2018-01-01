@@ -54,6 +54,7 @@ file. Default is user's home directory.
 ---
 
 (c) [sobes.io][1] 2018
+
 image [Diana Robinson][3], 2017
 
 [1]: https://sobes.io

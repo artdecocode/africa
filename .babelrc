@@ -1,0 +1,28 @@
+{
+    "presets": [
+        ["env", {
+            "exclude": [
+                "transform-regenerator",
+                "transform-async-to-generator"
+            ],
+            "modules": false,
+            "debug": true,
+            "targets": {
+                "node": 4
+            }
+        }]
+    ],
+    "plugins": [
+        ["module:fast-async", {
+            "spec": true
+        }],
+        ["transform-rename-import", {
+            "original": "../..",
+            "replacement": "../../src/"
+        }],
+        ["transform-rename-import", {
+            "original": "wrote",
+            "replacement": "wrote/es5/src"
+        }]
+    ]
+}

@@ -1,6 +1,6 @@
 const { throws, deepEqual, equal } = require('zoroaster/assert')
 const context = require('../context/')
-const africa = require('../../src/')
+const africa = require('../..')
 
 const africaTestSuite = {
     context,

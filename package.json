@@ -5,7 +5,12 @@
   "main": "src/index.js",
   "scripts": {
     "test": "zoroaster test/spec",
-    "test-watch": "zoroaster test/spec --watch"
+    "test-watch": "zoroaster test/spec --watch",
+    "test-es5": "zoroaster es5/test/spec",
+    "build-src": "babel src --out-dir es5/src",
+    "build-test": "babel test --out-dir es5/test --copy-files --include-dotfiles",
+    "build": "run-s build-src build-test",
+    "b5": "run-s build test-es5"
   },
   "repository": {
     "type": "git",
@@ -21,6 +26,11 @@
   },
   "homepage": "https://github.com/Sobesednik/africa#readme",
   "devDependencies": {
+    "babel-cli": "7.0.0-beta.3",
+    "babel-plugin-transform-rename-import": "2.1.1",
+    "babel-preset-env": "7.0.0-beta.3",
+    "fast-async": "6.3.0",
+    "npm-run-all": "4.1.2",
     "zoroaster": "0.5.2"
   },
   "dependencies": {
