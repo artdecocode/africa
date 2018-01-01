@@ -1,6 +1,6 @@
-## 30 December 2017
+## 1 January 2018
 
-## 0.1.0
+## 1.0.0
 
 - Create `africa` with `mnp`
 - [repo]: `test`, `src`
