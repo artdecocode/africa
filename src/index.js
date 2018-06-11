@@ -4,9 +4,9 @@ import { homedir as home } from 'os'
 import { askQuestions } from 'reloquent'
 
 async function askQuestionsAndWrite(questions, path) {
-    const answers = await askQuestions(questions)
-    await writeJSON(path, answers, { space: 2 })
-    return answers
+  const answers = await askQuestions(questions)
+  await writeJSON(path, answers, { space: 2 })
+  return answers
 }
 
 /**
@@ -21,25 +21,25 @@ async function askQuestionsAndWrite(questions, path) {
  * @param {string} [config.rcNameFunction] Function used to generate the rc name
  */
 async function africa(packageName, questions = {}, config = {}) {
-    if (typeof packageName != 'string') {
-        throw new Error('Package name is required.')
-    }
-    const {
-        homedir = home(),
-        rcNameFunction = packageName => `.${packageName}rc`,
-        force = false,
-    } = config
+  if (typeof packageName != 'string') {
+    throw new Error('Package name is required.')
+  }
+  const {
+    homedir = home(),
+    rcNameFunction = packageName => `.${packageName}rc`,
+    force = false,
+  } = config
 
-    const rc = rcNameFunction(packageName)
-    const path = resolve(homedir, rc)
+  const rc = rcNameFunction(packageName)
+  const path = resolve(homedir, rc)
 
-    const ex = await exists(path)
-    if (!ex || force) {
-        const conf = await askQuestionsAndWrite(questions, path)
-        return conf
-    }
-    const parsed = await readJSON(path)
-    return parsed
+  const ex = await exists(path)
+  if (!ex || force) {
+    const conf = await askQuestionsAndWrite(questions, path)
+    return conf
+  }
+  const parsed = await readJSON(path)
+  return parsed
 }
 
 module.exports = africa
