@@ -1,8 +1,23 @@
 import { resolve } from 'path'
-import { exists } from 'wrote'
 import { homedir as home } from 'os'
 import ask from 'reloquent'
 import bosom from 'bosom'
+import { stat } from 'fs'
+
+const exists = async (path) => {
+  const res = await new Promise((r, j) => {
+    stat(path, (err) => {
+      if (err && err.code == 'ENOENT') {
+        r(false)
+      } else if (err) {
+        j(err)
+      } else {
+        r(true)
+      }
+    })
+  })
+  return res
+}
 
 /**
  * @attach reloquent
