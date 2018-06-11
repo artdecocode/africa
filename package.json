@@ -18,17 +18,17 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/Sobesednik/africa.git"
+    "url": "git://github.com/artdecocode/africa.git"
   },
   "keywords": [
     "africa"
   ],
-  "author": "Anton <anton@sobes.io>",
+  "author": "Anton <anton@adc.sh>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Sobesednik/africa/issues"
+    "url": "https://github.com/artdecocode/africa/issues"
   },
-  "homepage": "https://github.com/Sobesednik/africa#readme",
+  "homepage": "https://github.com/artdecocode/africa#readme",
   "devDependencies": {
     "babel-cli": "7.0.0-beta.3",
     "babel-plugin-transform-rename-import": "2.1.1",
