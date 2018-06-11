@@ -1,7 +1,8 @@
 import { resolve } from 'path'
-import { readJSON, writeJSON, exists } from 'wrote'
+import { exists } from 'wrote'
 import { homedir as home } from 'os'
 import ask from 'reloquent'
+import bosom from 'bosom'
 
 /**
  * @attach reloquent
@@ -25,7 +26,7 @@ import ask from 'reloquent'
 
 async function askQuestionsAndWrite(questions, path) {
   const answers = await ask(questions)
-  await writeJSON(path, answers, { space: 2 })
+  await bosom(path, answers, { space: 2 })
   return answers
 }
 
@@ -59,6 +60,6 @@ export default async function africa(packageName, questions = {}, config = {}) {
     const conf = await askQuestionsAndWrite(questions, path)
     return conf
   }
-  const parsed = await readJSON(path)
+  const parsed = await bosom(path)
   return parsed
 }
