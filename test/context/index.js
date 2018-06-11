@@ -1,8 +1,8 @@
 import { resolve as r } from 'path'
 import { readJSON, writeJSON, erase, createWritable } from 'wrote'
 import { homedir } from 'os'
-import { spawn } from 'child_process'
 import { Readable } from 'stream'
+import { fork } from 'spawncommand'
 
 const FIXTURES_PATH = r(__dirname, '../fixtures')
 
@@ -39,10 +39,24 @@ export default class Context {
     const res = await readJSON(this.path)
     return res
   }
+  /**
+   * A module which can be used to spawn africa via a fork.
+   */
+  get fixtureModule() {
+    return process.env.BABEL_ENV == 'test-build' ? '../fixtures' : '../fixtures/register.js'
+  }
+  /**
+   * Fork a Node.js process to execute africa in a clean environment. The method will answer questions with provided answers automatically.
+   * @param {string} packageName Name of the package to run africa against.
+   * @param {Object} questions An object with questions
+   * @param {Object} answers An object with answers.
+   * @returns {string}[] Questions asked via stdout.
+   */
   async fork(packageName, questions, answers = []) {
-    const testModule = r(__dirname, '../fixtures/test')
-    const proc = spawn(process.execPath, [testModule], {
+    const mod = r(__dirname, this.fixtureModule)
+    const proc = fork(mod, [], {
       stdio: ['pipe', 'pipe', 'pipe', 'ipc'],
+      execArgv: [],
     })
     proc.send({ packageName, questions })
 
@@ -50,32 +64,31 @@ export default class Context {
     // proc.stderr.pipe(process.stdout)
 
     this.proc = proc
+    const q = []
 
-    await new Promise((resolve, reject) => {
-      const re = new Readable({
-        read() {
-          proc.stdout.on('data', () => {
-            if (!answers.length) {
-              this.push(null)
-            } else {
-              const answer = answers.shift()
-              this.push(`${answer}\n`)
-            }
-          })
-        },
-      })
-
-      re.pipe(proc.stdin)
-
-      proc.on('error', reject)
-      proc.on('exit', resolve)
+    const re = new Readable({
+      read() {
+        proc.stdout.on('data', (data) => {
+          if (!answers.length) {
+            this.push(null)
+          } else {
+            q.push(data)
+            const answer = answers.shift()
+            this.push(`${answer}\n`)
+          }
+        })
+      },
     })
-    delete this.proc
+
+    re.pipe(proc.stdin)
+    const { stderr, code } = await proc.promise
+    if (code) throw new Error(stderr)
+    return q
   }
 
   async _destroy() {
     await this.eraseRc()
-    if (this.proc) {
+    if (this.proc && this.proc.connected) {
       this.proc.kill()
       await new Promise((resolve) => {
         this.proc.on('exit', resolve)
