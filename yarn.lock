@@ -1857,9 +1857,9 @@ regexpp@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-1.1.0.tgz#0e3516dd0b7904f413d2d4193dce4618c3a689ab"
 
-reloquent@0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/reloquent/-/reloquent-0.2.0.tgz#0b9e5f02cc9d19466474a90a40d057f97312bfde"
+reloquent@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/reloquent/-/reloquent-1.0.0.tgz#a119ffab79b6e8cedb0dac974474ce02782e9925"
   dependencies:
     promto "1.0.1"
 
