@@ -1,7 +1,7 @@
-const { resolve } = require('path')
-const { readJSON, writeJSON, exists } = require('wrote')
-const { homedir: home } = require('os')
-const { askQuestions } = require('reloquent')
+import { resolve } from 'path'
+import { readJSON, writeJSON, exists } from 'wrote'
+import { homedir as home } from 'os'
+import { askQuestions } from 'reloquent'
 
 async function askQuestionsAndWrite(questions, path) {
     const answers = await askQuestions(questions)

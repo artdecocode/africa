@@ -1,9 +1,10 @@
-const { throws, deepEqual, equal } = require('zoroaster/assert')
-const context = require('../context/')
-const africa = require('../..')
+import { throws, deepEqual, equal } from 'zoroaster/assert'
+import Context from '../context'
+import africa from '../../src'
 
-const africaTestSuite = {
-    context,
+/** @type {Object.<string, (c: Context)} */
+const T = {
+    context: Context,
     'should be a function'() {
         equal(typeof africa, 'function')
     },
@@ -42,4 +43,4 @@ const africaTestSuite = {
     },
 }
 
-module.exports = africaTestSuite
+export default T
