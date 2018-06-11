@@ -7,14 +7,30 @@ exports.default = africa;
 
 var _path = require("path");
 
-var _wrote = require("wrote");
-
 var _os = require("os");
 
 var _reloquent = _interopRequireDefault(require("reloquent"));
 
+var _bosom = _interopRequireDefault(require("bosom"));
+
+var _fs = require("fs");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+const exists = async path => {
+  const res = await new Promise((r, j) => {
+    (0, _fs.stat)(path, err => {
+      if (err && err.code == 'ENOENT') {
+        r(false);
+      } else if (err) {
+        j(err);
+      } else {
+        r(true);
+      }
+    });
+  });
+  return res;
+};
 /**
  * @attach reloquent
  * @typedef {Object} Question
@@ -33,9 +49,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @property {number} [questionsTimeout] How log to wait before timing out. Will wait forever by default.
  * @property {(s: string) => string} [rcNameFunction] Function used to generate the rc name, e.g., packageName => `.${packageName}rc`,
  */
+
+
 async function askQuestionsAndWrite(questions, path) {
   const answers = await (0, _reloquent.default)(questions);
-  await (0, _wrote.writeJSON)(path, answers, {
+  await (0, _bosom.default)(path, answers, {
     space: 2
   });
   return answers;
@@ -66,13 +84,43 @@ async function africa(packageName, questions = {}, config = {}) {
   } = config;
   const rc = rcNameFunction(packageName);
   const path = (0, _path.resolve)(homedir, rc);
-  const ex = await (0, _wrote.exists)(path);
+  const ex = await exists(path);
 
-  if (!ex || force) {
+  if (!ex) {
     const conf = await askQuestionsAndWrite(questions, path);
     return conf;
   }
 
-  const parsed = await (0, _wrote.readJSON)(path);
+  const parsed = await (0, _bosom.default)(path);
+
+  if (force) {
+    const q = extendQuestions(questions, parsed);
+    const conf = await askQuestionsAndWrite(q, path);
+    return conf;
+  }
+
   return parsed;
 }
+/**
+ *
+ * @param {Questions} questions A set of questions to extend with default value from the existing config.
+ * @param {object} current Current configuration object.
+ * @returns {Questions} Questions with updated defaultValue where answers were present in the passed config object.
+ */
+
+
+const extendQuestions = (questions, current) => {
+  const q = Object.keys(questions).reduce((acc, key) => {
+    const question = questions[key];
+    const defaultValue = current[key];
+    const value = { ...question,
+      ...(defaultValue ? {
+        defaultValue
+      } : {})
+    };
+    return { ...acc,
+      [key]: value
+    };
+  }, {});
+  return q;
+};
