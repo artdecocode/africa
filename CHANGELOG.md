@@ -4,6 +4,7 @@
 
 - [package] move to [Art Deco Code](https://artdeco.bz), change owners
 - [ecma] rewrite with babel
+- [feature] `force` mode to override config
 
 ## 1 January 2018
 
