@@ -43,7 +43,7 @@
     "zoroaster": "2.1.0"
   },
   "dependencies": {
-    "reloquent": "1.0.0",
+    "reloquent": "1.0.1",
     "wrote": "1.3.0"
   }
 }
