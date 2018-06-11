@@ -2,18 +2,17 @@
   "name": "africa",
   "version": "1.0.1",
   "description": "A library to interactively create and read configuration files.",
-  "main": "src/index.js",
+  "main": "build",
   "scripts": {
-    "test": "zoroaster test/spec",
+    "t": "zoroaster -b",
+    "test": "zoroaster test/spec -b",
     "test-watch": "zoroaster test/spec --watch",
-    "test-es5": "zoroaster es5/test/spec",
-    "build-src": "babel src --out-dir es5/src",
-    "build-test": "babel test --out-dir es5/test --copy-files --include-dotfiles",
-    "build": "run-s build-src build-test",
-    "b5": "run-s build test-es5"
+    "build": "babel src --out-dir build",
+    "lint": "eslint .",
+    "build-test": "babel test --out-dir es5/test --copy-files --include-dotfiles"
   },
   "files": [
-    "src",
+    "build",
     "es5/src"
   ],
   "repository": {
@@ -30,12 +29,16 @@
   },
   "homepage": "https://github.com/artdecocode/africa#readme",
   "devDependencies": {
-    "babel-cli": "7.0.0-beta.3",
-    "babel-plugin-transform-rename-import": "2.1.1",
-    "babel-preset-env": "7.0.0-beta.3",
-    "fast-async": "6.3.0",
-    "npm-run-all": "4.1.2",
-    "zoroaster": "0.5.2"
+    "@babel/cli": "7.0.0-beta.49",
+    "@babel/core": "7.0.0-beta.49",
+    "@babel/plugin-syntax-object-rest-spread": "7.0.0-beta.49",
+    "@babel/plugin-transform-modules-commonjs": "7.0.0-beta.49",
+    "@babel/register": "7.0.0-beta.49",
+    "babel-plugin-transform-rename-import": "2.2.0",
+    "eslint": "4.19.1",
+    "eslint-config-artdeco": "1.0.0",
+    "yarn-s": "1.1.0",
+    "zoroaster": "2.1.0"
   },
   "dependencies": {
     "reloquent": "0.2.0",
