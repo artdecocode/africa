@@ -73,7 +73,7 @@ export default class Context {
           if (!answers.length) {
             this.push(null)
           } else {
-            q.push(data)
+            q.push(`${data}`)
             const answer = answers.shift()
             this.push(`${answer}\n`)
           }
