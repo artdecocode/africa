@@ -41,8 +41,8 @@ const T = {
       org: 'test-org',
     })
     deepEqual(q, [
-      'name',
-      'organisation',
+      'name: ',
+      'organisation: ',
     ])
   },
 }
