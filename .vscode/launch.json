@@ -6,22 +6,35 @@
   "configurations": [
     {
       "type": "node",
+      "request": "attach",
+      "name": "Attach",
+      "port": 9229,
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
       "request": "launch",
       "name": "Launch Zoroaster",
       "program": "${workspaceFolder}/node_modules/.bin/zoroaster",
       "args": [
-        "test/spec",
+        "test/spec/force.js",
         "-b",
         "-w"
       ],
       "env": {
         "BABEL_ENV": "debug",
+        "NODE_DEBUG": "africa",
         "ZOROASTER_TIMEOUT": "9999999"
       },
       "console": "integratedTerminal",
       "skipFiles": [
         "<node_internals>/**/*.js"
       ]
+    },
+    {
+      "type": "hybrid"
     }
   ]
 }

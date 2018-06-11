@@ -33,13 +33,14 @@ const T = {
         text: 'organisation',
       },
     }
-    const q = await fork(packageName, questions, ['test-name', 'test-org'])
+    const { questions: q, result } = await fork(packageName, questions, ['test-name', 'test-org'])
 
     const res = await readRc()
     deepEqual(res, {
       name: 'test-name',
       org: 'test-org',
     })
+    deepEqual(res, result)
     deepEqual(q, [
       'name: ',
       'organisation: ',

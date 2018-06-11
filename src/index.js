@@ -71,10 +71,38 @@ export default async function africa(packageName, questions = {}, config = {}) {
   const path = resolve(homedir, rc)
 
   const ex = await exists(path)
-  if (!ex || force) {
+  if (!ex) {
     const conf = await askQuestionsAndWrite(questions, path)
     return conf
   }
   const parsed = await bosom(path)
+  if (force) {
+    const q = extendQuestions(questions, parsed)
+    const conf = await askQuestionsAndWrite(q, path)
+    return conf
+  }
   return parsed
+}
+
+/**
+ *
+ * @param {Questions} questions A set of questions to extend with default value from the existing config.
+ * @param {object} current Current configuration object.
+ * @returns {Questions} Questions with updated defaultValue where answers were present in the passed config object.
+ */
+const extendQuestions = (questions, current) => {
+  const q = Object.keys(questions).reduce((acc, key) => {
+    const question = questions[key]
+    const defaultValue = current[key]
+    const value = {
+      ...question,
+      ...(defaultValue ? { defaultValue } : {}),
+    }
+
+    return {
+      ...acc,
+      [key]: value,
+    }
+  }, {})
+  return q
 }
