@@ -43,7 +43,8 @@ export default class Context {
    * A module which can be used to spawn africa via a fork.
    */
   get fixtureModule() {
-    return process.env.BABEL_ENV == 'test-build' ? '../fixtures' : '../fixtures/register.js'
+    return '../fixtures/register.js'
+    // return process.env.BABEL_ENV == 'test-build' ? '../fixtures' : '../fixtures/register.js'
   }
   /**
    * Fork a Node.js process to execute africa in a clean environment. The method will answer questions with provided answers automatically.
