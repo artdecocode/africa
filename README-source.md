@@ -11,12 +11,19 @@ exists, it will be read, and if not, questions will be asked and answers stored.
 ```sh
 yarn add -E africa
 ```
+<!--
+## ES5
+
+The package uses some newer language features. For your convenience, it's been
+transpiled to be compatible with Node 4. You can use the following snippet.
+
+```js
+const africa = require('africa/es5/src')
+``` -->
+
 ## Table of Contents
 
-- [ES5](#es5)
-- [Table of Contents](#table-of-contents)
-- [API](#api)
-  * [`async africa(packageName: string, questions: object, { force?: boolean, homedir?: string, rcNameFunction?: function }): Promise.<object>`](#async-africapackagename-string-questions-object--force-boolean-homedir-string-rcnamefunction-function--promiseobject)
+%TOC%
 
 ## API
 
