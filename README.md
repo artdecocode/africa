@@ -1,31 +1,37 @@
 # africa
 
+[![npm version](https://badge.fury.io/js/africa.svg)](https://badge.fury.io/js/africa)
+
 <a href="https://npmjs.org/packages/africa">
     <img src="./africa.jpg" alt="Africa" />
 </a>
 
-`africa` is a Node.js package which simplifies reading from and writing to
-persistent configuration files in user's home directory. If a configuration
-exists, it will be read, and if not, questions will be asked and answers stored.
+`africa` is a Node.js package which simplifies reading from and writing to persistent configuration files in user's home directory. If a configuration exists, it will be read, and if not, the user will be presented with questions, after which the answers will be stored in the `.rc` file.
 
 ```sh
 yarn add -E africa
 ```
+
 ## Table of Contents
 
-- [ES5](#es5)
 - [Table of Contents](#table-of-contents)
 - [API](#api)
-  * [`async africa(packageName: string, questions: object, { force?: boolean, homedir?: string, rcNameFunction?: function }): Promise.<object>`](#async-africapackagename-string-questions-object--force-boolean-homedir-string-rcnamefunction-function--promiseobject)
+  * [`async africa(packageName: string, questions: object, config?: object): Object`](#async-africapackagename-stringquestions-objectconfig-force-booleanhomedir-stringrcnamefunction-function-object)
+  * [`Config Type`](#config-type)
 
 ## API
 
-The package exports a single function.
+The package can be used via its Node.js API.
 
-### `async africa(packageName: string, questions: object, { force?: boolean, homedir?: string, rcNameFunction?: function }): Promise.<object>`
+### `async africa(`<br/>&nbsp;&nbsp;`packageName: string,`<br/>&nbsp;&nbsp;`questions: object,`<br/>&nbsp;&nbsp;`config?: {`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`force?: boolean,`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`homedir?: string,`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`rcNameFunction?: function,`<br/>&nbsp;&nbsp;`},`<br/>`): Object`
 
-Call `africa` asynchronously to read or create a new configuration. Questions
-should adhere to [`reloquent`][2]'s interface.
+Call `africa` asynchronously to read or create a new configuration. Questions should adhere to the [`reloquent`][2]'s interface.
+
+| Argument | Description |
+| -------- | ----------- |
+| `packageName` | Name of the package which uses `africa`. It will be used when generating a name for the `.rc` file. |
+| `questions` | An object with questions answers to which will be saved into the `.rc` file. |
+| `Config` | Additional configuration parameters, see [Config Object](#config-object). |
 
 ```js
 import africa from 'africa'
@@ -46,12 +52,15 @@ import { userInfo } from 'os'
 })()
 ```
 
-- Use `force` to ask questions and update the configuration file even if one
-already exists.
-- Pass `homedir` to specify in which directory to search for the configuration
-file. Default is user's home directory.
-- Customise the name of the configuration file with with `rcNameFunction`, e.g.,
-`packageName => packageName + '.json'`
+### `Config Type`
+
+Any additional functionality can be configured via the config object.
+
+| Property | Default | Description |
+| -------- | ------- | ----------- |
+| `force` | `false` | Ask questions and update the configuration file even if it already exists. |
+| `homedir` | `os.homedir()` | In which directory to save and search for configuration file. |
+| `homedir` | `p => p + '.rc'` | How to generate the configuration file name. For example, to save as a JSON file, use the following: `packageName => packageName + '.json'` |
 
 ---
 
