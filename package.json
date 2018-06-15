@@ -13,8 +13,7 @@
     "build-test": "babel test --out-dir es5/test --copy-files --include-dotfiles"
   },
   "files": [
-    "build",
-    "es5/src"
+    "build"
   ],
   "repository": {
     "type": "git",
@@ -36,6 +35,7 @@
     "@babel/plugin-transform-modules-commonjs": "7.0.0-beta.49",
     "@babel/register": "7.0.0-beta.49",
     "babel-plugin-transform-rename-import": "2.2.0",
+    "documentary": "1.1.0",
     "eslint": "4.19.1",
     "eslint-config-artdeco": "1.0.0",
     "spawncommand": "2.0.1",
