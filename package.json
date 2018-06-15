@@ -10,7 +10,8 @@
     "test-watch": "zoroaster test/spec --watch",
     "build": "babel src --out-dir build",
     "lint": "eslint .",
-    "build-test": "babel test --out-dir es5/test --copy-files --include-dotfiles"
+    "example/": "node example/index.js example/example.js",
+    "doc": "doc README-source.md -o README.md"
   },
   "files": [
     "build"
