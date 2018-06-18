@@ -11,7 +11,7 @@
     "build": "babel src --out-dir build",
     "lint": "eslint .",
     "example/": "node example/index.js example/example.js",
-    "doc": "doc README-source.md -o README.md"
+    "doc": "doc documentation -o README.md"
   },
   "files": [
     "build"

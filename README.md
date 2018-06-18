@@ -1,6 +1,6 @@
 # africa
 
-[![npm version](https://badge.fury.io/js/africa.svg)](https://badge.fury.io/js/africa)
+[![npm version](https://badge.fury.io/js/africa.svg)](https://npmjs.org/package/africa)
 
 <a href="https://npmjs.org/packages/africa">
     <img src="./africa.jpg" alt="Africa" />
@@ -12,9 +12,9 @@
 yarn add -E africa
 ```
 
-## Table of Contents
+## Table Of Contents
 
-- [Table of Contents](#table-of-contents)
+- [Table Of Contents](#table-of-contents)
 - [API](#api)
   * [`async africa(packageName: string, questions: object, config?: object): Object`](#async-africapackagename-stringquestions-objectconfig-force-booleanhomedir-stringrcnamefunction-function-object)
   * [`Config Type`](#config-type)
