@@ -75,6 +75,19 @@ Any additional functionality can be configured via the config object.
 ]
 ```
 
+```### async update => Object
+[
+  ["packageName", "string"],
+  ["properties", "object"],
+  ["config?", {
+    "homedir?": ["string"],
+    "rcNameFunction?": ["function"]
+  }]
+]
+```
+
+Updates the configuration properties in the `.rc` file. It will extend and override the original config with the passed object.
+
 ---
 
 (c) [Art Deco Code][1] 2018
