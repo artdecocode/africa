@@ -1,3 +1,10 @@
+## 18 June 2018
+
+## 1.1.1
+
+- [docs] update documentation
+- [dep] upgrade dep
+
 ## 11 June 2018
 
 ## 1.1.0
