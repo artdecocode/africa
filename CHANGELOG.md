@@ -1,3 +1,9 @@
+## 3 July 2018
+
+## 1.1.2
+
+- [dep] Update dependencies, remove `babel` and `eslint`.
+
 ## 18 June 2018
 
 ## 1.1.1
