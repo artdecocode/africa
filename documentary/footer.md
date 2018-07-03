@@ -1,7 +1,7 @@
 
 ---
 
-(c) [Art Deco Code][1] 2018
+(c) [Art Deco][1] 2018
 
 image [Diana Robinson][3], 2017
 

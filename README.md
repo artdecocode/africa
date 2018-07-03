@@ -16,14 +16,18 @@ yarn add -E africa
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-  * [`async africa(packageName: string, questions: object, config?: object): Object`](#async-africapackagename-stringquestions-objectconfig-force-booleanhomedir-stringrcnamefunction-function-object)
-  * [`Config Type`](#config-type)
+  * [`async africa(packageName: string, questions: object, config?: AfricaConfig): Object`](#async-africapackagename-stringquestions-objectconfig-force-booleanhomedir-stringquestionstimeout-numberrcnamefunction-function-object)
+  * [`AfricaConfig` Type](#africaconfig-type)
+    * [<code>force</code>](#force)
+    * [<code>homedir</code>](#homedir)
+    * [<code>questionsTimeout</code>](#questionstimeout)
+    * [<code>rcNameFunction</code>](#rcnamefunction)
 
 ## API
 
 The package can be used via its Node.js API.
 
-### `async africa(`<br/>&nbsp;&nbsp;`packageName: string,`<br/>&nbsp;&nbsp;`questions: object,`<br/>&nbsp;&nbsp;`config?: {`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`force?: boolean,`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`homedir?: string,`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`rcNameFunction?: function,`<br/>&nbsp;&nbsp;`},`<br/>`): Object`
+### `async africa(`<br/>&nbsp;&nbsp;`packageName: string,`<br/>&nbsp;&nbsp;`questions: object,`<br/>&nbsp;&nbsp;`config?: {`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`force?: boolean,`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`homedir?: string,`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`questionsTimeout?: number,`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`rcNameFunction?: function,`<br/>&nbsp;&nbsp;`},`<br/>`): Object`
 
 Call `africa` asynchronously to read or create a new configuration. Questions should adhere to the [`reloquent`][2]'s interface.
 
@@ -31,9 +35,9 @@ Call `africa` asynchronously to read or create a new configuration. Questions sh
 | -------- | ----------- |
 | `packageName` | Name of the package which uses `africa`. It will be used when generating a name for the `.rc` file. |
 | `questions` | An object with questions answers to which will be saved into the `.rc` file. |
-| `Config` | Additional configuration parameters, see [Config Object](#config-object). |
+| `Config` | Additional configuration parameters, see [`AfricaConfig` Type](#africaconfig-type). |
 
-```js
+```javascript
 import africa from 'africa'
 import { userInfo } from 'os'
 
@@ -52,19 +56,55 @@ import { userInfo } from 'os'
 })()
 ```
 
-### `Config Type`
+```sh
+user: [zavr]
+{ name: 'zavr' }
+```
+### `AfricaConfig` Type
 
 Any additional functionality can be configured via the config object.
 
-| Property | Default | Description |
-| -------- | ------- | ----------- |
-| `force` | `false` | Ask questions and update the configuration file even if it already exists. |
-| `homedir` | `os.homedir()` | In which directory to save and search for configuration file. |
-| `homedir` | `p => p + '.rc'` | How to generate the configuration file name. For example, to save as a JSON file, use the following: `packageName => packageName + '.json'` |
+<table>
+ <thead>
+  <tr>
+   <th>Property</th>
+   <th>Type</th>
+   <th>Description</th>
+   <th>Example</th>
+  </tr>
+ </thead>
+ <tbody>
+   <tr>
+  <td><a name="force"><code>force</code></a></td>
+  <td><em>boolean</em></td>
+  <td>Ask questions and update the configuration file even if it already exists. Default <code>false</code>.</td>
+  <td><code>true</code></td>
+ </tr>
+ <tr>
+  <td><a name="homedir"><code>homedir</code></a></td>
+  <td><em>string</em></td>
+  <td>In which directory to save and search for configuration file. Default <code>os.homedir()</code>.</td>
+  <td><code>resolve('..')</code></td>
+ </tr>
+ <tr>
+  <td><a name="questionstimeout"><code>questionsTimeout</code></a></td>
+  <td><em>number</em></td>
+  <td>How log to wait in ms before timing out. Will wait forever by default.</td>
+  <td><code>10000</code></td>
+ </tr>
+ <tr>
+  <td><a name="rcnamefunction"><code>rcNameFunction</code></a></td>
+  <td><em>function</em></td>
+  <td>Function used to generate the rc name. Default <code>packageName => `.${packageName}rc`</code>.</td>
+  <td>To save as JSON: <code>packageName => `${packageName}.json`</code></td>
+ </tr>
+ </tbody>
+</table>
+
 
 ---
 
-(c) [Art Deco Code][1] 2018
+(c) [Art Deco][1] 2018
 
 image [Diana Robinson][3], 2017
 

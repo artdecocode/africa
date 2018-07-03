@@ -6,8 +6,9 @@
   ["config?", {
     "force?": ["boolean"],
     "homedir?": ["string"],
+    "questionsTimeout?": ["number"],
     "rcNameFunction?": ["function"]
-  }]
+  }, "AfricaConfig"]
 ]
 ```
 
@@ -18,25 +19,13 @@ Call `africa` asynchronously to read or create a new configuration. Questions sh
   ["Argument", "Description"],
   ["`packageName`", "Name of the package which uses `africa`. It will be used when generating a name for the `.rc` file."],
   ["`questions`", "An object with questions answers to which will be saved into the `.rc` file."],
-  ["`Config`", "Additional configuration parameters, see [Config Object](#config-object)."]
+  ["`Config`", "Additional configuration parameters, see [`AfricaConfig` Type](#africaconfig-type)."]
 ]
 ```
 
-```js
-import africa from 'africa'
-import { userInfo } from 'os'
+%EXAMPLE: example/example.js, ../src => africa, javascript%
 
-(async () => {
-  try {
-    const config = await africa('africa', {
-      name: {
-        defaultValue: userInfo().username,
-        text: 'user',
-      },
-    }, { force: true })
-    console.log(config)
-  } catch ({ stack }) {
-    console.log(stack)
-  }
-})()
+```sh
+user: [zavr]
+{ name: 'zavr' }
 ```
