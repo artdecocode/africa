@@ -9,36 +9,12 @@ var _path = require("path");
 
 var _os = require("os");
 
-var _reloquent = _interopRequireDefault(require("reloquent"));
-
 var _bosom = _interopRequireDefault(require("bosom"));
 
-var _fs = require("fs");
+var _lib = require("./lib");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const exists = async path => {
-  const res = await new Promise((r, j) => {
-    (0, _fs.stat)(path, err => {
-      if (err && err.code == 'ENOENT') {
-        r(false);
-      } else if (err) {
-        j(err);
-      } else {
-        r(true);
-      }
-    });
-  });
-  return res;
-};
-
-async function askQuestionsAndWrite(questions, path, timeout) {
-  const answers = await (0, _reloquent.default)(questions, timeout);
-  await (0, _bosom.default)(path, answers, {
-    space: 2
-  });
-  return answers;
-}
 /**
  * Read package configuration from the home directory, or ask questions with
  * readline interface to create a new configuration in `~/.${packageName}rc`
@@ -48,10 +24,9 @@ async function askQuestionsAndWrite(questions, path, timeout) {
  * @param {boolean} [config.force=false] Force asking questions and re-writing config. Default false.
  * @param {string} [config.homedir] Path to the home directory.
  * @param {string} [config.questionsTimeout] How log to wait before timing out. Will wait forever by default.
+ * @param {string} [config.local] Look up for the `.rc` file in the current directory first, and use homedir if not found. When initialising, the local file will be created and default values for questions read from the home `.rc` if exists.. Default `false`.
  * @param {(s: string) => string} [config.rcNameFunction] Function used to generate the rc name
  */
-
-
 async function africa(packageName, questions = {}, config = {}) {
   if (typeof packageName != 'string') {
     throw new Error('Package name is required.');
@@ -61,27 +36,61 @@ async function africa(packageName, questions = {}, config = {}) {
     homedir = (0, _os.homedir)(),
     rcNameFunction = p => `.${p}rc`,
     force = false,
+    local = false,
     questionsTimeout
   } = config;
   const rc = rcNameFunction(packageName);
   const path = (0, _path.resolve)(homedir, rc);
-  const ex = await exists(path);
+  const homeEx = await (0, _lib.exists)(path);
 
-  if (!ex) {
-    const conf = await askQuestionsAndWrite(questions, path, questionsTimeout);
+  if (local) {
+    const localPath = (0, _path.resolve)(rc);
+    const localEx = await (0, _lib.exists)(localPath);
+    const c = await handleLocal(homeEx, localEx, path, localPath, questions, questionsTimeout, force);
+    return c;
+  }
+
+  const c = await handleHome(homeEx, path, questions, questionsTimeout, force);
+  return c;
+}
+
+const handleHome = async (homeEx, path, questions, questionsTimeout, force) => {
+  if (!homeEx) {
+    const conf = await (0, _lib.askQuestionsAndWrite)(questions, path, questionsTimeout);
     return conf;
   }
 
+  const p = await getParsed(path, questions, force, questionsTimeout);
+  return p;
+};
+
+const getParsed = async (path, questions, force, questionsTimeout) => {
   const parsed = await (0, _bosom.default)(path);
 
   if (force) {
-    const q = extendQuestions(questions, parsed);
-    const conf = await askQuestionsAndWrite(q, path, questionsTimeout);
-    return conf;
+    const c = await forceQuestions(questions, path, parsed, questionsTimeout);
+    return c;
   }
 
   return parsed;
-}
+};
+
+const handleLocal = async (homeEx, localEx, path, localPath, questions, questionsTimeout, force) => {
+  if (!localEx) {
+    const h = homeEx ? await (0, _bosom.default)(path) : {};
+    const conf = await forceQuestions(questions, localPath, h, questionsTimeout);
+    return conf;
+  }
+
+  const p = await getParsed(localPath, questions, force, questionsTimeout);
+  return p;
+};
+
+const forceQuestions = async (questions, path, config, questionsTimeout) => {
+  const q = extendQuestions(questions, config);
+  const conf = await (0, _lib.askQuestionsAndWrite)(q, path, questionsTimeout);
+  return conf;
+};
 /**
  *
  * @param {Questions} questions A set of questions to extend with default value from the existing config.
@@ -120,5 +129,6 @@ const extendQuestions = (questions, current) => {
  * @property {string} [homedir] Path to the home directory.
  * @property {number} [questionsTimeout] How log to wait before timing out. Will wait forever by default.
  * @property {(s: string) => string} [rcNameFunction] Function used to generate the rc name, e.g., packageName => `.${packageName}rc`.
+ * @property {string} [config.local] Look up for the `.rc` file in the current directory first, and use homedir if not found. When initialising, the local file will be created and default values for questions read from the home `.rc` if exists.. Default `false`.
  */
 //# sourceMappingURL=index.js.map
