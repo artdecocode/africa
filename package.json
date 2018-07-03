@@ -12,6 +12,7 @@
     "build": "yarn-s b doc",
     "lint": "eslint .",
     "example/": "node example/index.js example/example.js",
+    "example/local.js": "node example/index.js example/local.js",
     "doc": "doc documentary -o README.md"
   },
   "files": [

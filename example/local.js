@@ -1,4 +1,4 @@
-/* yarn example/ */
+/* yarn example/local.js */
 import africa from '../src'
 import { userInfo } from 'os'
 
@@ -9,7 +9,7 @@ import { userInfo } from 'os'
         defaultValue: userInfo().username,
         text: 'user',
       },
-    }, { force: true })
+    }, { force: true, local: true })
     console.log(config)
   } catch ({ stack }) {
     console.log(stack)
