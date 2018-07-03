@@ -90,7 +90,7 @@ const T = {
       name: getDefault,
     })
     deepEqual(q, [
-      `name: [${name}] [${getDefault}] `,
+      `name: [\u001b[90m${name}\u001b[0m] [${getDefault}] `,
       `organisation: [${org}] `,
     ])
   },
