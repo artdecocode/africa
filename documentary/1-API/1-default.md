@@ -7,6 +7,7 @@
     "force?": ["boolean"],
     "homedir?": ["string"],
     "questionsTimeout?": ["number"],
+    "local?": ["boolean"],
     "rcNameFunction?": ["function"]
   }, "AfricaConfig"]
 ]
@@ -19,7 +20,7 @@ Call `africa` asynchronously to read or create a new configuration. Questions sh
   ["Argument", "Description"],
   ["`packageName`", "Name of the package which uses `africa`. It will be used when generating a name for the `.rc` file."],
   ["`questions`", "An object with questions answers to which will be saved into the `.rc` file."],
-  ["`Config`", "Additional configuration parameters, see [`AfricaConfig` Type](#africaconfig-type)."]
+  ["`config`", "Additional configuration parameters, see [`AfricaConfig` Type](#africaconfig-type)."]
 ]
 ```
 

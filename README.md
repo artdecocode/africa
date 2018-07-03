@@ -16,18 +16,19 @@ yarn add -E africa
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-  * [`async africa(packageName: string, questions: object, config?: AfricaConfig): Object`](#async-africapackagename-stringquestions-objectconfig-force-booleanhomedir-stringquestionstimeout-numberrcnamefunction-function-object)
+  * [`async africa(packageName: string, questions: object, config?: AfricaConfig): Object`](#async-africapackagename-stringquestions-objectconfig-force-booleanhomedir-stringquestionstimeout-numberlocal-booleanrcnamefunction-function-object)
   * [`AfricaConfig` Type](#africaconfig-type)
     * [<code>force</code>](#force)
     * [<code>homedir</code>](#homedir)
     * [<code>questionsTimeout</code>](#questionstimeout)
+    * [<code>local</code>](#local)
     * [<code>rcNameFunction</code>](#rcnamefunction)
 
 ## API
 
 The package can be used via its Node.js API.
 
-### `async africa(`<br/>&nbsp;&nbsp;`packageName: string,`<br/>&nbsp;&nbsp;`questions: object,`<br/>&nbsp;&nbsp;`config?: {`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`force?: boolean,`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`homedir?: string,`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`questionsTimeout?: number,`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`rcNameFunction?: function,`<br/>&nbsp;&nbsp;`},`<br/>`): Object`
+### `async africa(`<br/>&nbsp;&nbsp;`packageName: string,`<br/>&nbsp;&nbsp;`questions: object,`<br/>&nbsp;&nbsp;`config?: {`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`force?: boolean,`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`homedir?: string,`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`questionsTimeout?: number,`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`local?: boolean,`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`rcNameFunction?: function,`<br/>&nbsp;&nbsp;`},`<br/>`): Object`
 
 Call `africa` asynchronously to read or create a new configuration. Questions should adhere to the [`reloquent`][2]'s interface.
 
@@ -35,9 +36,10 @@ Call `africa` asynchronously to read or create a new configuration. Questions sh
 | -------- | ----------- |
 | `packageName` | Name of the package which uses `africa`. It will be used when generating a name for the `.rc` file. |
 | `questions` | An object with questions answers to which will be saved into the `.rc` file. |
-| `Config` | Additional configuration parameters, see [`AfricaConfig` Type](#africaconfig-type). |
+| `config` | Additional configuration parameters, see [`AfricaConfig` Type](#africaconfig-type). |
 
 ```javascript
+/* yarn example/ */
 import africa from 'africa'
 import { userInfo } from 'os'
 
@@ -91,6 +93,12 @@ Any additional functionality can be configured via the config object.
   <td><em>number</em></td>
   <td>How log to wait in ms before timing out. Will wait forever by default.</td>
   <td><code>10000</code></td>
+ </tr>
+ <tr>
+  <td><a name="local"><code>local</code></a></td>
+  <td><em>boolean</em></td>
+  <td>Whether to read a local config file in the current working directory rather than in the <code>HOMEDIR</code>. When initialising, the default values will be taken from the home config if it exists so that it is easy to extend <code>.rc</code> files. <code>false</code> by default.</td>
+  <td><code>true</code></td>
  </tr>
  <tr>
   <td><a name="rcnamefunction"><code>rcNameFunction</code></a></td>
