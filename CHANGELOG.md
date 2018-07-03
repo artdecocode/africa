@@ -1,5 +1,9 @@
 ## 3 July 2018
 
+## 1.2.0
+
+- [feature] Read local `.rc` file with `local` configuration parameter.
+
 ## 1.1.2
 
 - [dep] Update dependencies, remove `babel` and `eslint`.
