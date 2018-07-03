@@ -3,6 +3,8 @@
 ## 1.1.2
 
 - [dep] Update dependencies, remove `babel` and `eslint`.
+- [fix] Pass `questionTimeout` to `reloquent`.
+- [doc] Better doc using `%TYPE%`.
 - [package] Remove `es5`.
 
 ## 18 June 2018
