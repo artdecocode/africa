@@ -31,28 +31,9 @@ const exists = async path => {
   });
   return res;
 };
-/**
- * @attach reloquent
- * @typedef {Object} Question
- * @property {string} text A text to show to the user.
- * @property {string} [defaultValue] A default answer to the question.
- * @property {function} [getDefault] A function which will get the default value, possibly asynchronously.
- * @property {function} [validation] A validation function which should throw on error.
- * @property {(s: string) => string} [postProcess] A transformation function for the answer.
- *
- * @typedef {Object.<string, Question>} Questions
- *
- * @typedef {Object} AfricaConfig
- * @property {boolean} [force=false] Force asking questions and re-writing config. Default false.
- * @property {string} [homedir] Path to the home directory.
- * @property {string} [defaultValue] A default answer to the question.
- * @property {number} [questionsTimeout] How log to wait before timing out. Will wait forever by default.
- * @property {(s: string) => string} [rcNameFunction] Function used to generate the rc name, e.g., packageName => `.${packageName}rc`,
- */
 
-
-async function askQuestionsAndWrite(questions, path) {
-  const answers = await (0, _reloquent.default)(questions);
+async function askQuestionsAndWrite(questions, path, timeout) {
+  const answers = await (0, _reloquent.default)(questions, timeout);
   await (0, _bosom.default)(path, answers, {
     space: 2
   });
@@ -66,7 +47,6 @@ async function askQuestionsAndWrite(questions, path) {
  * @param {AfricaConfig} [config] configuration object
  * @param {boolean} [config.force=false] Force asking questions and re-writing config. Default false.
  * @param {string} [config.homedir] Path to the home directory.
- * @param {string} [config.defaultValue] A default answer to the question.
  * @param {string} [config.questionsTimeout] How log to wait before timing out. Will wait forever by default.
  * @param {(s: string) => string} [config.rcNameFunction] Function used to generate the rc name
  */
@@ -80,14 +60,15 @@ async function africa(packageName, questions = {}, config = {}) {
   const {
     homedir = (0, _os.homedir)(),
     rcNameFunction = p => `.${p}rc`,
-    force = false
+    force = false,
+    questionsTimeout
   } = config;
   const rc = rcNameFunction(packageName);
   const path = (0, _path.resolve)(homedir, rc);
   const ex = await exists(path);
 
   if (!ex) {
-    const conf = await askQuestionsAndWrite(questions, path);
+    const conf = await askQuestionsAndWrite(questions, path, questionsTimeout);
     return conf;
   }
 
@@ -95,7 +76,7 @@ async function africa(packageName, questions = {}, config = {}) {
 
   if (force) {
     const q = extendQuestions(questions, parsed);
-    const conf = await askQuestionsAndWrite(q, path);
+    const conf = await askQuestionsAndWrite(q, path, questionsTimeout);
     return conf;
   }
 
@@ -124,4 +105,20 @@ const extendQuestions = (questions, current) => {
   }, {});
   return q;
 };
+/**
+ * @typedef {Object} Question
+ * @property {string} text A text to show to the user.
+ * @property {string} [defaultValue] A default answer to the question.
+ * @property {function} [getDefault] A function which will get the default value, possibly asynchronously.
+ * @property {function} [validation] A validation function which should throw on error.
+ * @property {(s: string) => string} [postProcess] A transformation function for the answer.
+ *
+ * @typedef {Object.<string, Question>} Questions
+ *
+ * @typedef {Object} AfricaConfig
+ * @property {boolean} [force=false] Force asking questions and re-writing config. Default false.
+ * @property {string} [homedir] Path to the home directory.
+ * @property {number} [questionsTimeout] How log to wait before timing out. Will wait forever by default.
+ * @property {(s: string) => string} [rcNameFunction] Function used to generate the rc name, e.g., packageName => `.${packageName}rc`.
+ */
 //# sourceMappingURL=index.js.map
