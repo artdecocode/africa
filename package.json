@@ -8,7 +8,8 @@
     "test": "zoroaster test/spec -b",
     "test-build": "BABEL_ENV=test-build zoroaster test/spec -b",
     "test-watch": "zoroaster test/spec --watch",
-    "build": "babel src --out-dir build",
+    "b": "b --source-maps",
+    "build": "yarn-s b doc",
     "lint": "eslint .",
     "example/": "node example/index.js example/example.js",
     "doc": "doc documentary -o README.md"
