@@ -1,5 +1,9 @@
 ## 1 August 2019
 
+### [1.3.1](https://github.com/artdecocode/africa/compare/v1.3.0...v1.3.1)
+
+- [fix] Vendor _Reloquent_ types.
+
 ### [1.3.0](https://github.com/artdecocode/africa/compare/v1.2.0...v1.3.0)
 
 - [package] Compile with [_Depack_](https://compiler.page).
