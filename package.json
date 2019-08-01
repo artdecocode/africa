@@ -10,15 +10,18 @@
     "test-build": "ALAMODE_ENV=test-compile yarn test",
     "compile": "depack-dev src/africa.js -o compile/africa.js -a -c -p --source_map_include_content -O 2018",
     "lint": "eslint .",
-    "example/": "node example/index.js example/example.js",
-    "example/local.js": "node example/index.js example/local.js",
-    "doc": "doc documentary -o README.md",
+    "d1": "typal compile/index.js -c",
+    "externs": "typal types/externs.js",
+    "d": "yarn-s d1 externs",
+    "doc": "NODE_DEBUG=doc doc -o README.md",
     "e": "alanode"
   },
   "files": [
     "compile",
-    "src"
+    "src",
+    "types"
   ],
+  "externs": "types/externs.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/artdecocode/africa.git"

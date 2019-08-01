@@ -8,12 +8,7 @@ import { exists, askQuestionsAndWrite } from './lib'
  * readline interface to create a new configuration in `~/.${packageName}rc`
  * @param {string} packageName the name of the package
  * @param {Questions} questions an object with questions to be passed to reloquent
- * @param {AfricaConfig} [config] configuration object
- * @param {boolean} [config.force=false] Force asking questions and re-writing config. Default false.
- * @param {string} [config.homedir] Path to the home directory.
- * @param {string} [config.questionsTimeout] How log to wait before timing out. Will wait forever by default.
- * @param {string} [config.local] Look up for the `.rc` file in the current directory first, and use homedir if not found. When initialising, the local file will be created and default values for questions read from the home `.rc` if exists.. Default `false`.
- * @param {(s: string) => string} [config.rcNameFunction] Function used to generate the rc name
+ * @param {_africa.Config} [config] configuration object
  */
 export default async function africa(packageName, questions = {}, config = {}) {
   if (typeof packageName != 'string') {
@@ -111,10 +106,10 @@ const extendQuestions = (questions, current) => {
  *
  * @typedef {Object.<string, Question>} Questions
  *
- * @typedef {Object} AfricaConfig
- * @property {boolean} [force=false] Force asking questions and re-writing config. Default false.
- * @property {string} [homedir] Path to the home directory.
- * @property {number} [questionsTimeout] How log to wait before timing out. Will wait forever by default.
- * @property {(s: string) => string} [rcNameFunction] Function used to generate the rc name, e.g., packageName => `.${packageName}rc`.
- * @property {string} [config.local] Look up for the `.rc` file in the current directory first, and use homedir if not found. When initialising, the local file will be created and default values for questions read from the home `.rc` if exists.. Default `false`.
+ */
+
+
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').Config} _africa.Config
  */

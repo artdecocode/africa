@@ -1,4 +1,4 @@
-import { deepEqual } from 'zoroaster/assert'
+import { deepEqual } from '@zoroaster/assert'
 import { resolve as r } from 'path'
 import { readJSON, writeJSON, erase, createWritable } from 'wrote'
 import { homedir as h } from 'os'
