@@ -23,7 +23,7 @@ Call `africa` asynchronously to read or create a new configuration. Questions sh
 ]
 ```
 
-%EXAMPLE: example/example.js, ../src => africa, javascript%
+%EXAMPLE: example, ../src => africa, javascript%
 
 ```sh
 user: [zavr]
