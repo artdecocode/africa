@@ -119,7 +119,7 @@ user: [zavr]
  </tr>
  <tr></tr>
  <tr>
-  <td>Function used to generate the <code>.rc</code> name. Default: &lt;code&gt;packageName => <code>.${packageName}rc</code>&lt;/code>.</td>
+  <td>Function used to generate the <code>.rc</code> name. Default: packageName =&gt; <code>.${packageName}rc</code>.</td>
  </tr>
 </table>
 

@@ -14,7 +14,7 @@
     </prop>
     <fn name="rcNameFunction" return="string" opt>
       <arg string name="packageName"></arg>
-      Function used to generate the `.rc` name. Default: <code>packageName => `.${packageName}rc`</code>.
+      Function used to generate the `.rc` name. Default: packageName => `.${packageName}rc`.
     </fn>
   </type>
 </types>

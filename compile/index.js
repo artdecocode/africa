@@ -10,7 +10,7 @@ const __africa = require('./africa')
  * @param {string} [config.homedir="os.homedir()"] In which directory to save and search for configuration file. Default `os.homedir()`.
  * @param {number} [config.questionsTimeout] How log to wait in ms before timing out. Will wait forever by default.
  * @param {boolean} [config.local=false] Whether to read a local config file in the current working directory rather than in the `HOMEDIR`. When initialising, the default values will be taken from the home config if it exists so that it is easy to extend `.rc` files. Default `false`.
- * @param {function(string): string} [config.rcNameFunction] Function used to generate the `.rc` name. Default: <code>packageName => `.${packageName}rc`</code>.
+ * @param {function(string): string} [config.rcNameFunction] Function used to generate the `.rc` name. Default: packageName => `.${packageName}rc`.
  */
 function africa(packageName, questions, config) {
   return __africa(packageName, questions, config)
@@ -28,5 +28,5 @@ module.exports = africa
  * @prop {string} [homedir="os.homedir()"] In which directory to save and search for configuration file. Default `os.homedir()`.
  * @prop {number} [questionsTimeout] How log to wait in ms before timing out. Will wait forever by default.
  * @prop {boolean} [local=false] Whether to read a local config file in the current working directory rather than in the `HOMEDIR`. When initialising, the default values will be taken from the home config if it exists so that it is easy to extend `.rc` files. Default `false`.
- * @prop {function(string): string} [rcNameFunction] Function used to generate the `.rc` name. Default: <code>packageName => `.${packageName}rc`</code>.
+ * @prop {function(string): string} [rcNameFunction] Function used to generate the `.rc` name. Default: packageName => `.${packageName}rc`.
  */

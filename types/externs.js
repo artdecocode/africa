@@ -32,7 +32,7 @@ _africa.Config.prototype.questionsTimeout
  */
 _africa.Config.prototype.local
 /**
- * Function used to generate the `.rc` name. Default: <code>packageName => `.${packageName}rc`</code>.
+ * Function used to generate the `.rc` name. Default: packageName => `.${packageName}rc`.
  * @type {(function(string): string)|undefined}
  */
 _africa.Config.prototype.rcNameFunction = function() {}

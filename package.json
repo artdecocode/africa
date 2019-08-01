@@ -5,9 +5,9 @@
   "main": "compile/index.js",
   "module": "src/index.js",
   "scripts": {
-    "t": "zoroaster -a",
+    "t": "zoroaster -a -t 5000",
     "test": "yarn t test/spec",
-    "test-build": "ALAMODE_ENV=test-compile yarn test",
+    "test-compile": "ALAMODE_ENV=test-compile yarn test",
     "compile": "depack-dev src/depack.js -o compile/africa.js -s -a -c -p --source_map_include_content -O 2018",
     "lint": "eslint .",
     "d1": "typal compile/index.js -c",
