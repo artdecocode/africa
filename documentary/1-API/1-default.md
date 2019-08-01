@@ -1,5 +1,4 @@
-
-```### async africa => Object
+```## async africa => Object
 [
   ["packageName", "string"],
   ["questions", "object"],

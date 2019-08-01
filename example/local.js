@@ -1,4 +1,3 @@
-/* yarn example/local.js */
 import africa from '../src'
 import { userInfo } from 'os'
 

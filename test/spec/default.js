@@ -1,4 +1,4 @@
-import { throws, deepEqual, equal } from 'zoroaster/assert'
+import { throws, deepEqual, equal } from '@zoroaster/assert'
 import Context from '../context'
 import africa from '../../src'
 

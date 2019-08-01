@@ -1,0 +1,21 @@
+<types ns="_africa">
+  <type name="Config" desc="The configuration object to configure additional functionality.">
+    <prop boolean name="force" default="false">
+      Ask questions and update the configuration file even if it already exists.
+    </prop>
+    <prop string name="homedir" default="os.homedir()">
+      In which directory to save and search for configuration file.
+    </prop>
+    <prop number name="questionsTimeout" opt>
+      How log to wait in ms before timing out. Will wait forever by default.
+    </prop>
+    <prop boolean name="local" default="false">
+      Whether to read a local config file in the current working directory rather than in the `HOMEDIR`. When initialising, the default values will be taken from the home config if it exists so that it is easy to extend `.rc` files.
+    </prop>
+    <fn name="Function used to generate the rc name.">
+      <arg string name="packageName"></arg>
+      Function used to generate the `.rc` name.
+      Default: <code>packageName => `.${packageName}rc`</code>
+    </prop>
+  </type>
+</types>

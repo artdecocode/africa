@@ -1,4 +1,9 @@
-
 ## API
 
-The package can be used via its Node.js API.
+The package is available by importing its default function:
+
+```js
+import africa from 'africa'
+```
+
+%~%
