@@ -17,8 +17,18 @@ export const exists = async (path) => {
   return res
 }
 
+/**
+ * @param {_reloquent.Questions} questions
+ * @param {string} path
+ * @param {number} [timeout]
+ */
 export async function askQuestionsAndWrite(questions, path, timeout) {
   const answers = await ask(questions, timeout)
   await bosom(path, answers, { space: 2 })
   return answers
 }
+
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('reloquent/types').Questions} _reloquent.Questions
+ */

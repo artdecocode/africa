@@ -6,14 +6,14 @@ import { exists, askQuestionsAndWrite } from './lib'
 /**
  * Read package configuration from the home directory, or ask questions with
  * readline interface to create a new configuration in `~/.${packageName}rc`
- * @param {string} packageName the name of the package
- * @param {Questions} questions an object with questions to be passed to reloquent
- * @param {_africa.Config} [config] configuration object
+ * @param {string} packageName The name of the package.
+ * @param {!_reloquent.Questions} questions An object with questions to be passed to reloquent.
+ * @param {!_africa.Config} [config] Configuration object.
  */
 export default async function africa(packageName, questions = {}, config = {}) {
-  if (typeof packageName != 'string') {
+  if (typeof packageName != 'string')
     throw new Error('Package name is required.')
-  }
+
   const {
     homedir = home(),
     rcNameFunction = p => `.${p}rc`,
@@ -74,9 +74,9 @@ const forceQuestions = async (questions, path, config, questionsTimeout) => {
 
 /**
  *
- * @param {Questions} questions A set of questions to extend with default value from the existing config.
- * @param {object} current Current configuration object.
- * @returns {Questions} Questions with updated defaultValue where answers were present in the passed config object.
+ * @param {_reloquent.Questions} questions A set of questions to extend with default value from the existing config.
+ * @param {!Object} current Current configuration object.
+ * @returns {_reloquent.Questions} Questions with updated defaultValue where answers were present in the passed config object.
  */
 const extendQuestions = (questions, current) => {
   const q = Object.keys(questions).reduce((acc, key) => {
@@ -97,17 +97,9 @@ const extendQuestions = (questions, current) => {
 
 
 /**
- * @typedef {Object} Question
- * @property {string} text A text to show to the user.
- * @property {string} [defaultValue] A default answer to the question.
- * @property {function} [getDefault] A function which will get the default value, possibly asynchronously.
- * @property {function} [validation] A validation function which should throw on error.
- * @property {(s: string) => string} [postProcess] A transformation function for the answer.
- *
- * @typedef {Object.<string, Question>} Questions
- *
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('reloquent/types').Questions} _reloquent.Questions
  */
-
 
 /**
  * @suppress {nonStandardJsDocs}

@@ -1,5 +1,5 @@
 import { deepEqual } from '@zoroaster/assert'
-import { resolve as r } from 'path'
+import { join } from 'path'
 import { readJSON, writeJSON, erase, createWritable } from 'wrote'
 import { homedir as h } from 'os'
 import { Readable } from 'stream'
@@ -8,7 +8,7 @@ import { debuglog } from 'util'
 
 const LOG = debuglog('africa')
 
-const FIXTURES_PATH = r(__dirname, '../fixtures')
+const FIXTURE = 'test/fixture'
 
 /**
  * @typedef {Object} ForkResult
@@ -27,8 +27,8 @@ export default class Context {
       name: 'test-name',
       org: 'test-org',
     })
-    this._path = r(h(), `.${this.packageName}rc`)
-    this._extendPath = r(FIXTURES_PATH, `.${this.extendPackageName}rc`)
+    this._path = join(h(), `.${this.packageName}rc`)
+    this._extendPath = join(FIXTURE, `.${this.extendPackageName}rc`)
     await writeJSON(this.path, this.json, { space: 2 })
     await writeJSON(this.extendPath, this.json, { space: 2 })
   }
@@ -48,17 +48,17 @@ export default class Context {
     return `extend-${this.packageName}`
   }
   get fixturesPath() {
-    return FIXTURES_PATH
+    return FIXTURE
   }
   get fixturesRcPath() {
-    return r(FIXTURES_PATH, `.${this.packageName}rc`)
+    return join(FIXTURE, `.${this.packageName}rc`)
   }
   async eraseRc() {
     const ws2 = await createWritable(this.path)
     await erase(ws2)
   }
   async readPackageRc(packageName) {
-    const res = await readJSON(r(FIXTURES_PATH, `.${packageName}rc`))
+    const res = await readJSON(join(FIXTURE, `.${packageName}rc`))
     return res
   }
   async readRc() {
@@ -69,7 +69,7 @@ export default class Context {
    * A module which can be used to spawn africa via a fork.
    */
   get fixtureModule() {
-    return '../fixtures/register.js'
+    return '../fixture/alamode.js'
     // return process.env.BABEL_ENV == 'test-build' ? '../fixtures' : '../fixtures/register.js'
   }
 
@@ -83,7 +83,7 @@ export default class Context {
    * @returns {ForkResult>} Questions asked via stdout.
    */
   async fork(packageName, questions, answers = [], config) {
-    const mod = r(__dirname, this.fixtureModule)
+    const mod = join(__dirname, this.fixtureModule)
     const proc = fork(mod, [], {
       stdio: ['pipe', 'pipe', 'pipe', 'ipc'],
       execArgv: [
